@@ -37,7 +37,7 @@ public class ThemeParkApplicationIT {
 
     @Test
     public void returnsNotFoundForInvalidSingleRide() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/ride/4")
+        mockMvc.perform(MockMvcRequestBuilders.get("/ride/10")
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound())
                 .andReturn();
