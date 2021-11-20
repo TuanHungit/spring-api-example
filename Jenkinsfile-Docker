@@ -1,0 +1,35 @@
+pipeline {
+    agent any
+
+    triggers {
+        pollSCM '* * * * *'
+    }
+    stages {
+        stage('Build') {
+            steps {
+                sh './gradlew assemble'
+            }
+        }
+        stage('Test') {
+            steps {
+                sh './gradlew test'
+            }
+        }
+
+        stage('Build docker images') {
+            step {
+                sh './gradle docker'
+            }
+        }
+
+        stage('Push to docker hub') {
+            environment {
+                DOCKER_HUB_LOGIN = credentials('docker-hub')
+            }
+            steps {
+                sh 'docker login --username=DOCKER_HUB_LOGIN_USR --password=DOCKER_HUB_LOGIN_PSW'
+                sh './gradlew dockerPush'
+            }
+        }
+    }
+}

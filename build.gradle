@@ -32,7 +32,7 @@ test {
     useJUnitPlatform()
 }
 
-String imageName = "hungnt/spring-boot-api-example:$version";
+String imageName = "tuanhungit/spring-boot-api-example:$version";
 
 docker {
     name imageName
